@@ -25,7 +25,7 @@
   <title>Kalim</title>
 </svelte:head>
 
-<Nav />
+<Nav {session} />
 <main class="ml-12 pt-8 sm:pt-12 flex-1 flex flex-col items-center p-4">
   <slot />
 </main>

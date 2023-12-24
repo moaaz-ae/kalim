@@ -10,3 +10,20 @@ export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
 
   return { url: url.origin };
 };
+
+export const actions = {
+  sendMagicLink: async ({ request, locals: { supabase } }) => {
+    const formData = await request.formData();
+    const email = formData.get('email') as string;
+
+    console.log(email);
+
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email: email,
+      options: {
+        shouldCreateUser: true,
+        emailRedirectTo: 'http://localhost:5173/explore',
+      },
+    });
+  },
+};
