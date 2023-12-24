@@ -1,14 +1,14 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
+export const load: PageServerLoad = async ({ locals: { getSession } }) => {
   const session = await getSession();
 
   if (!session) {
     throw redirect(303, '/explore');
   }
 
-  return { url: url.origin };
+  return;
 };
 
 export const actions = {

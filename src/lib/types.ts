@@ -13,6 +13,7 @@ interface Article {
   is_published: boolean;
   content: string;
   created_at: string;
+  profiles: Profile;
 }
 
 interface User {

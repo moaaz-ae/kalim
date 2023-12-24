@@ -1,16 +1,18 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import ArticleCard from '$lib/components/article-card.svelte';
-  import AddArticle from '$lib/components/add-article.svelte';
   import type { Profile } from '$lib/types';
   import type { PageData } from './$types';
 
   export let data: PageData;
 
-  const {
+  let {
     profile,
     session,
     supabase,
   }: { profile: Profile; session: any; supabase: any } = data;
+
+  $: ({ profile, session, supabase } = data);
 
   const resize = (e: Event) => {
     const textarea = e.target as HTMLTextAreaElement;
@@ -44,7 +46,31 @@
       console.error(error);
     }
   };
+
+  const createArticle = async () => {
+    const { data, error } = await supabase
+      .from('articles')
+      .insert({
+        title: 'Untitled',
+        content: '',
+        user_id: session.user.id,
+      })
+      .select('id')
+      .single();
+
+    if (error) {
+      console.log(error);
+    }
+
+    console.log(data);
+
+    goto(`/${session.user.id}/${data.id}/edit`);
+  };
 </script>
+
+<svelte:head>
+  <title>{profile.name}</title>
+</svelte:head>
 
 <div class="w-full max-w-xl flex flex-col gap-4">
   <div class="flex flex-col gap-1">
@@ -78,20 +104,25 @@
   </div>
 
   {#if session.user.id === profile.id}
-    <AddArticle />
+    <button
+      on:click={createArticle}
+      class="text-muted-foreground self-end hover:text-accent-foreground flex flex-row items-center gap-1"
+    >
+      Add Article
+    </button>
   {:else}
-    <p
+    <button
       class="text-muted-foreground hover:text-accent-foreground self-end flex flex-row items-center gap-1"
     >
       Follow
-    </p>
+    </button>
   {/if}
 
   {#if profile.articles.length > 0}
     {#each profile.articles as article}
-      <ArticleCard {article} />
+      <ArticleCard {article} {session} />
     {/each}
   {:else}
-    <p class="text-center">Nothing...</p>
+    <p class="text-center text-muted-foreground">Nothing...</p>
   {/if}
 </div>
