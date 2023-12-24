@@ -12,12 +12,14 @@
     <a href="{article.user_id}/{article.id}">
       <h1 class="hover:underline hover:cursor-pointer">{article.title}</h1>
     </a>
-    {#if article.user_id === session.user.id}
-      <a href="{article.user_id}/{article.id}/edit">
-        <Edit3
-          class="w-3.h-3.5 h-3.5 text-muted-foreground hover:text-primary"
-        />
-      </a>
+    {#if session}
+      {#if article.user_id === session.user.id}
+        <a href="{article.user_id}/{article.id}/edit">
+          <Edit3
+            class="w-3.h-3.5 h-3.5 text-muted-foreground hover:text-primary"
+          />
+        </a>
+      {/if}
     {/if}
   </div>
   <p class="text-sm text-muted-foreground">
