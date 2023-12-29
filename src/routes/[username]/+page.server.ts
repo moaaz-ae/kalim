@@ -21,10 +21,15 @@ export const load: PageServerLoad = async ({
   }
 
   if (profile.articles) {
-    profile.articles = profile!.articles.map((article: Article) => ({
-      ...article,
-      profile: profile,
-    }));
+    profile.articles = profile!.articles
+      .map((article: Article) => ({
+        ...article,
+        profile: profile,
+      }))
+      .sort(
+        (a: Article, b: Article) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
   }
 
   return {
