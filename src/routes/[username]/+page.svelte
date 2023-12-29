@@ -45,7 +45,7 @@
       <p class="text-muted-foreground">@{profile.username}</p>
     </div>
     {#if profile.about}
-      <p class="text-muted-foreground">{profile.about}</p>
+      <p class="text-muted-foreground whitespace-pre-wrap">{profile.about}</p>
     {/if}
   </div>
 
