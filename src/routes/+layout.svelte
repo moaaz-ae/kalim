@@ -4,8 +4,9 @@
   import '@fontsource/cousine';
   import { invalidate } from '$app/navigation';
   import { onMount } from 'svelte';
+  import type { LayoutData } from './$types';
 
-  export let data;
+  export let data: LayoutData;
 
   let { supabase, session } = data;
   $: ({ supabase, session } = data);
@@ -25,7 +26,7 @@
   <title>Kalim</title>
 </svelte:head>
 
-<Nav {session} />
+<Nav {session} profile={data.userProfile} />
 <main class="ml-12 pt-8 sm:pt-12 flex-1 flex flex-col items-center p-4">
   <slot />
 </main>

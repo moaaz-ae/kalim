@@ -1,24 +1,33 @@
 import type { Article } from '$lib/types';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({
   locals: { supabase },
-  params: { user_id },
+  params: { username },
 }) => {
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('*, articles(*)')
-    .eq('id', user_id)
+    .eq('username', username)
     .single();
 
   if (error) {
     console.error(error);
   }
 
-  profile.articles = profile.articles.map((article: Article) => ({
-    ...article,
-    profiles: profile,
-  }));
+  if (!profile) {
+    throw redirect(303, '/explore');
+  }
 
-  return { profile };
+  if (profile.articles) {
+    profile.articles = profile!.articles.map((article: Article) => ({
+      ...article,
+      profiles: profile,
+    }));
+  }
+
+  return {
+    profile,
+  };
 };

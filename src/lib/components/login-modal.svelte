@@ -17,7 +17,7 @@
     </button>
   </Dialog.Trigger>
   <Dialog.Content class="w-[90vw] sm:max-w-[425px] sm:w-full">
-    <Dialog.Header>
+    <Dialog.Header class="space-y-2">
       <Dialog.Title>Log in</Dialog.Title>
       <Dialog.Description>
         We will send a magic link to your email

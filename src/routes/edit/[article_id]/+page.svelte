@@ -9,13 +9,15 @@
   $: ({ supabase, article } = data);
 
   let is_published = article.is_published;
+  let slugExists = false;
 
   const changeTitle = async (e: Event) => {
-    const target = e.target as HTMLInputElement;
+    let value = (e.target as HTMLInputElement).value;
+    if (!value) value = 'Untitled';
 
     const { error } = await supabase
       .from('articles')
-      .update({ title: target.value })
+      .update({ title: value })
       .eq('id', article.id)
       .single();
 
@@ -35,6 +37,27 @@
 
     if (error) {
       console.log(error);
+    }
+  };
+
+  const changeSlug = async (e: Event) => {
+    let value = (e.target as HTMLInputElement).value;
+    if (!value) value = article.id;
+    value = value.trim().replace(/ /g, '-');
+
+    const { error } = await supabase
+      .from('articles')
+      .update({ slug: value })
+      .eq('id', article.id)
+      .single();
+
+    if (error) {
+      if (error.code === '23505') {
+        slugExists = true;
+      }
+      console.log(error);
+    } else {
+      slugExists = false;
     }
   };
 
@@ -61,12 +84,37 @@
       console.log(error);
     }
 
-    goto(`/${article.user_id}`);
+    goto(`/${article.profiles.username}`);
   };
 </script>
 
 <div class="max-w-xl w-full h-full flex flex-col">
   <div class="mb-4 space-y-2">
+    <div class="flex flex-row w-full items-center gap-4">
+      {#if slugExists}
+        <Label for="slug" class="text-destructive w-14 text-start">Slug</Label>
+      {:else}
+        <Label for="slug" class="text-muted-foreground w-14 text-start">
+          Slug
+        </Label>
+      {/if}
+      <input
+        autocomplete="off"
+        spellcheck="false"
+        class="outline-none border-none focus:outline-none focus:border-none focus:ring-0 ring-0 focus:shadow-none shadow-none bg-transparent w-full"
+        type="text"
+        id="slug"
+        placeholder="unique-slug"
+        value={article.slug}
+        on:input={(e) => changeSlug(e)}
+      />
+    </div>
+    {#if slugExists}
+      <p class="text-destructive">
+        Slug already exists. This will not be saved.
+      </p>
+    {/if}
+
     <div class="flex flex-row w-full items-center gap-4">
       <Label for="title" class="text-muted-foreground w-14 text-start">
         Title

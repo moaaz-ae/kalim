@@ -1,10 +1,19 @@
-export const load = async ({ locals: { getSession, supabase } }) => {
+import { redirect } from '@sveltejs/kit';
+import type { LayoutServerLoad } from './$types';
+import type { Article, Profile } from '$lib/types';
+
+export const load: LayoutServerLoad = async ({
+  locals: { getSession, supabase },
+  url,
+}) => {
   const user = (await getSession())?.user;
+
+  let profile: Profile | undefined = undefined;
 
   if (user) {
     const { data, error } = await supabase
       .from('profiles')
-      .select('*')
+      .select('*, articles(*)')
       .eq('id', user.id)
       .single();
 
@@ -12,22 +21,21 @@ export const load = async ({ locals: { getSession, supabase } }) => {
       console.error(error);
     }
 
-    if (!data) {
-      const { error: profileError } = await supabase.from('profiles').insert([
-        {
-          id: user.id,
-          name: 'Change this to your name',
-          about: 'Change this to be about you.',
-        },
-      ]);
-
-      if (profileError) {
-        console.error(profileError);
+    if (!data && url.pathname !== '/create') {
+      throw redirect(303, '/create');
+    } else if (data != undefined) {
+      profile = data;
+      if (profile!.articles) {
+        profile!.articles = profile!.articles.map((article: Article) => ({
+          ...article,
+          profiles: profile!,
+        }));
       }
     }
   }
 
   return {
     session: await getSession(),
+    userProfile: profile,
   };
 };
