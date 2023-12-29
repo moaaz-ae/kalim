@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Music2 } from 'lucide-svelte';
+  import { Disc2, Disc3 } from 'lucide-svelte';
 
   let playing = false;
 
@@ -24,6 +24,12 @@
   Your browser does not support the audio element.
 </audio>
 
-<button on:click={toggleMusic} class="p-2 text-muted-foreground">
-  <Music2 class="w-[1.1rem] h-[1.1rem]" />
-</button>
+{#if playing}
+  <button on:click={toggleMusic} class="p-2 text-muted-foreground">
+    <Disc3 class="w-[1.1rem] h-[1.1rem]" />
+  </button>
+{:else}
+  <button on:click={toggleMusic} class="p-2 text-muted-foreground">
+    <Disc2 class="w-[1.1rem] h-[1.1rem]" />
+  </button>
+{/if}
