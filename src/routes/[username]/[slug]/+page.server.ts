@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({
 }) => {
   const { data: article, error } = await supabase
     .from('articles')
-    .select('*, profiles(name, id, username)')
+    .select('*, profile:profiles(name, id, username)')
     .eq('slug', slug)
     .single();
 

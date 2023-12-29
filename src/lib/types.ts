@@ -15,7 +15,7 @@ interface Article {
   slug: string;
   content: string;
   created_at: string;
-  profiles: Profile;
+  profile: Profile;
 }
 
 interface User {

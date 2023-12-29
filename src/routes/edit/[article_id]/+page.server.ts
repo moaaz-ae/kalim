@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({
   }
 
   if (article && profile) {
-    article.profiles = profile;
+    article.profile = profile;
   }
 
   return { article };

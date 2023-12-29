@@ -9,7 +9,7 @@
 
 <div class="border rounded-lg bg-card p-4 flex flex-col gap-2">
   <div class="flex flex-row gap-4 justify-between">
-    <a href="{article.profiles.username}/{article.slug}">
+    <a href="{article.profile.username}/{article.slug}">
       <h1 class="hover:underline hover:cursor-pointer">{article.title}</h1>
     </a>
     {#if session}
@@ -23,7 +23,7 @@
     {/if}
   </div>
   <p class="text-sm text-muted-foreground">
-    <a href="/{article.profiles.username}">{article.profiles.name}</a>
+    <a href="/{article.profile.username}">{article.profile.name}</a>
     · {formatDate(article.created_at)}
   </p>
 </div>

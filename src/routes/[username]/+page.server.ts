@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({
   if (profile.articles) {
     profile.articles = profile!.articles.map((article: Article) => ({
       ...article,
-      profiles: profile,
+      profile: profile,
     }));
   }
 
