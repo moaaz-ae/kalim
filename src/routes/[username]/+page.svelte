@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import ArticleCard from '$lib/components/article-card.svelte';
   import ChangeProfile from '$lib/components/change-profile-modal.svelte';
   import type { PageData } from './$types';
@@ -26,6 +26,8 @@
     if (error) {
       console.log(error);
     }
+
+    invalidateAll();
 
     goto(`/edit/${data?.id}`);
   };

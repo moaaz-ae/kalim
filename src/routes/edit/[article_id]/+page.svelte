@@ -84,7 +84,7 @@
       console.log(error);
     }
 
-    goto(`/${article.profiles.username}`);
+    goto(`/${article.profile.username}`);
   };
 </script>
 
