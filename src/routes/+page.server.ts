@@ -16,7 +16,8 @@ export const actions = {
       email: email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: 'http://localhost:5173/explore',
+
+        emailRedirectTo: 'https://www.kalim.co/explore',
       },
     });
   },
