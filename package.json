@@ -29,6 +29,7 @@
     "@fontsource/cousine": "^5.0.18",
     "@supabase/auth-helpers-sveltekit": "^0.10.7",
     "@supabase/supabase-js": "^2.39.1",
+    "@vercel/speed-insights": "^1.0.2",
     "bits-ui": "^0.11.8",
     "clsx": "^2.0.0",
     "formsnap": "^0.4.2",

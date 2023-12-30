@@ -7,6 +7,7 @@
   import { invalidate } from '$app/navigation';
   import { onMount } from 'svelte';
   import type { LayoutData } from './$types';
+  import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
   export let data: LayoutData;
 
@@ -24,6 +25,7 @@
   });
 
   inject({ mode: dev ? 'development' : 'production' });
+  injectSpeedInsights();
 </script>
 
 <svelte:head>
