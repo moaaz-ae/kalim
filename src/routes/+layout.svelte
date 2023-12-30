@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { dev } from '$app/environment';
+  import { inject } from '@vercel/analytics';
   import Nav from '$lib/components/nav.svelte';
   import '../app.pcss';
   import '@fontsource/cousine';
@@ -20,6 +22,8 @@
 
     return () => data.subscription.unsubscribe();
   });
+
+  inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <svelte:head>
