@@ -17,7 +17,7 @@ export const actions = {
       options: {
         shouldCreateUser: true,
 
-        emailRedirectTo: 'https://www.kalim.co/explore',
+        emailRedirectTo: 'https://kalim.co/explore',
       },
     });
   },
