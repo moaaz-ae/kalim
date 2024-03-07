@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { Compass, User } from 'lucide-svelte';
+  import { Compass, User, Info } from 'lucide-svelte';
   import LoginModal from './login-modal.svelte';
   import MusicPlayer from './music-player.svelte';
   import FullscreenButton from './fullscreen-button.svelte';
+  import AboutModal from './about-modal.svelte';
 
   export let session: any;
   export let profile: any;
@@ -32,4 +33,6 @@
   <MusicPlayer />
 
   <FullscreenButton />
+
+  <AboutModal Icon={Info} />
 </nav>
