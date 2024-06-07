@@ -1,10 +1,11 @@
 <script lang="ts">
-  import Nav from '$lib/components/nav.svelte';
-  import '../app.pcss';
+  import '../app.css';
   import '@fontsource/cousine';
+
   import { invalidate } from '$app/navigation';
   import { onMount } from 'svelte';
   import type { LayoutData } from './$types';
+  import Nav from '$lib/components/nav.svelte';
 
   export let data: LayoutData;
 

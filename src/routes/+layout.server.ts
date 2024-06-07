@@ -1,12 +1,10 @@
+// src/routes/+layout.server.ts
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 import type { Article, Profile } from '$lib/types';
 
-export const load: LayoutServerLoad = async ({
-  locals: { getSession, supabase },
-  url,
-}) => {
-  const user = (await getSession())?.user;
+export const load = (async ({ locals: { safeGetSession, supabase }, url }) => {
+  const { session, user } = await safeGetSession();
 
   let profile: Profile | undefined = undefined;
 
@@ -35,7 +33,8 @@ export const load: LayoutServerLoad = async ({
   }
 
   return {
-    session: await getSession(),
+    session,
+    user,
     userProfile: profile,
   };
-};
+}) satisfies LayoutServerLoad;

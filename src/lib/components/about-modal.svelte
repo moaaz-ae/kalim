@@ -13,7 +13,7 @@
   <Dialog.Content class="w-[90vw] sm:max-w-[425px] sm:w-full">
     <Dialog.Header class="space-y-2">
       <Dialog.Title>About</Dialog.Title>
-      <Dialog.Description>A Simple Story</Dialog.Description>
+      <Dialog.Description>A simple story</Dialog.Description>
     </Dialog.Header>
     <p>I wanted to start writing.</p>
     <p>I thought that having a website to write on would help me to write.</p>
@@ -23,6 +23,6 @@
     <p>It is here if you want a simple place to write.</p>
     <p>Of course, you'll discover that you need more than a website.</p>
     <p>Good luck!</p>
-    <a href="https://mzz.wtf" target="_blank" class="underline">moaaz</a>
+    <a href="https://mzz.one" target="_blank" class="underline">moaaz</a>
   </Dialog.Content>
 </Dialog.Root>

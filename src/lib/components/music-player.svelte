@@ -10,7 +10,7 @@
     ) as HTMLAudioElement;
 
     if (audio) {
-      audio.volume = 0.05;
+      audio.volume = 0.1;
       if (playing) {
         audio.play();
       } else {

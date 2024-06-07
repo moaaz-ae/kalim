@@ -1,27 +1,16 @@
-// src/app.d.ts
-
 import { SupabaseClient, Session } from '@supabase/supabase-js';
 
 declare global {
   namespace App {
     interface Locals {
       supabase: SupabaseClient;
-      getSession(): Promise<Session | null>;
+      safeGetSession(): Promise<{ session: Session | null; user: User | null }>;
     }
     interface PageData {
       session: Session | null;
+      user: User | null;
     }
     // interface Error {}
     // interface Platform {}
-
-    interface Platform {
-      env: {
-        COUNTER: DurableObjectNamespace;
-      };
-      context: {
-        waitUntil(promise: Promise<any>): void;
-      };
-      caches: CacheStorage & { default: Cache };
-    }
   }
 }

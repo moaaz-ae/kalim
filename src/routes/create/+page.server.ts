@@ -2,9 +2,9 @@ import type { Actions, PageServerLoad } from './$types';
 import { redirect, fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({
-  locals: { supabase, getSession },
+  locals: { supabase, safeGetSession },
 }) => {
-  const user = (await getSession())?.user;
+  const user = (await safeGetSession())?.user;
 
   const { data, error } = await supabase
     .from('profiles')
@@ -20,13 +20,13 @@ export const load: PageServerLoad = async ({
 };
 
 export const actions: Actions = {
-  createProfile: async ({ request, locals: { supabase, getSession } }) => {
+  createProfile: async ({ request, locals: { supabase, safeGetSession } }) => {
     const formData = await request.formData();
     let username = formData.get('username') as string;
     username = username.trim().toLocaleLowerCase().replace(/ /g, '-');
     const name = formData.get('name') as string;
     const about = formData.get('about') as string | null;
-    const user = (await getSession())?.user;
+    const user = (await safeGetSession())?.user;
 
     const { data, error } = await supabase
       .from('profiles')

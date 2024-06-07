@@ -3,13 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root,
-  html,
-  body,
-  #svelte {
-    @apply h-full;
-  }
-
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -53,6 +46,15 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
+}
+
+@layer base {
+  :root,
+  html,
+  body,
+  #svelte {
+    @apply h-full;
+  }
 
   ::-webkit-scrollbar {
     @apply w-1;
@@ -73,9 +75,7 @@
   html.dark {
     scrollbar-color: hsl(215.4 16.3% 56.9% / 0.3);
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }

@@ -13,7 +13,11 @@
 
 <div class="w-full max-w-xl flex flex-col gap-4">
   <h1 class="font-semibold">Explore</h1>
-  {#each articles as article}
-    <ArticleCard {article} {session} />
-  {/each}
+  {#if articles && articles.length > 0}
+    {#each articles as article}
+      <ArticleCard {article} {session} />
+    {/each}
+  {:else}
+    <p class="text-muted-foreground text-center">Nothing...</p>
+  {/if}
 </div>

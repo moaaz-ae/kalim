@@ -2,10 +2,10 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({
-  locals: { supabase, getSession },
+  locals: { supabase, safeGetSession },
   params: { article_id },
 }) => {
-  const user = (await getSession())?.user;
+  const user = (await safeGetSession())?.user;
 
   const { data: article, error } = await supabase
     .from('articles')

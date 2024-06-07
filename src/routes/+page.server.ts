@@ -10,23 +10,23 @@ export const actions = {
     const formData = await request.formData();
     const email = formData.get('email') as string;
 
-    console.log(email);
-
-    const { data, error } = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signInWithOtp({
       email: email,
       options: {
         shouldCreateUser: true,
-
-        emailRedirectTo: 'https://kalim.co/explore',
       },
     });
+
+    if (error) {
+      console.error(error);
+    }
   },
 
-  changeProfile: async ({ request, locals: { supabase, getSession } }) => {
+  changeProfile: async ({ request, locals: { supabase, safeGetSession } }) => {
     const formData = await request.formData();
     const name = formData.get('name') as string;
     const about = (formData.get('about') as string) || null;
-    const user = (await getSession())?.user;
+    const user = (await safeGetSession())?.user;
 
     const { data, error } = await supabase
       .from('profiles')

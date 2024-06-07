@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import ArticleCard from '$lib/components/article-card.svelte';
   import ChangeProfile from '$lib/components/change-profile-modal.svelte';
+  import type { Article } from '$lib/types';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -9,6 +10,10 @@
   let { profile, session, supabase } = data;
 
   $: ({ profile, session, supabase } = data);
+
+  const publishedArticles: Article[] = profile.articles.filter(
+    (article: Article) => article.is_published
+  );
 
   const createArticle = async () => {
     const { data, error } = await supabase
@@ -19,6 +24,7 @@
         user_id: profile.id,
         is_published: false,
         slug: `${profile.id}${Date.now()}`,
+        profile: profile.id,
       })
       .select('id')
       .single();
@@ -65,7 +71,7 @@
           <ArticleCard {article} {session} />
         {/each}
       {:else}
-        {#each profile.articles.filter((article) => article.is_published) as article}
+        {#each publishedArticles as article}
           <ArticleCard {article} {session} />
         {/each}
       {/if}

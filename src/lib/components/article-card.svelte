@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Article } from '$lib/types';
-  import { Edit3 } from 'lucide-svelte';
+  import { PencilLine } from 'lucide-svelte';
   import { formatDate } from '$lib/utils';
 
   export let article: Article;
@@ -15,7 +15,7 @@
     {#if session}
       {#if article.user_id === session.user.id}
         <a href="edit/{article.id}">
-          <Edit3
+          <PencilLine
             class="w-3.h-3.5 h-3.5 text-muted-foreground hover:text-primary"
           />
         </a>
